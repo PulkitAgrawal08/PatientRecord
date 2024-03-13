@@ -1,23 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useState } from "react";
+import RangeBar from "./Components/RangeBar";
+import PatientTable from "./Components/PatientTable";
 
 function App() {
+  //State variables for age
+  const [minAge, setMinAge] = useState(0);
+  const [maxAge, setMaxAge] = useState(100);
+
+  //Min age handler
+  const handleMinAgeChange = (event) => {
+    setMinAge(parseInt(event.target.value));
+  };
+
+  //Max age handler
+  const handleMaxAgeChange = (event) => {
+    setMaxAge(parseInt(event.target.value));
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <RangeBar
+        minAge={minAge}
+        maxAge={maxAge}
+        onMinAgeChange={handleMinAgeChange}
+        onMaxAgeChange={handleMaxAgeChange}
+      />
+      {/*Passing minAge and maxAge as a props to patient table to filter data*/}
+      <PatientTable minAge={minAge} maxAge={maxAge} />
     </div>
   );
 }
